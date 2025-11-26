@@ -10,5 +10,6 @@ const route=new express.Router()
 
 route.post("/register",userController.registerController)
 
+route.post("/login",userController.loginController)
 
 module.exports=route

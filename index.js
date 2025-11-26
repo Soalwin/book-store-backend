@@ -1,8 +1,14 @@
+//import dotenv file
+require("dotenv").config()
+
 // import express 
 const express=require("express")
 
 // import cors
 const cors=require("cors")
+
+//import db file
+require('./dbConnection')
 
 // import route
 const route=require("./routes")
@@ -21,14 +27,13 @@ bookStoreServer.use(route)
 
 
 // create port 
-PORT=4000 || process.env.PORT
+const PORT = process.env.PORT || 4000
 
-bookStoreServer.listen(PORT,()=>{
-    console.log(`Server running in ${PORT}`);
-    
+bookStoreServer.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`)
 })
 
 bookStoreServer.get("/",(req,res)=>{
-    res.status(200).send("<h1>Server started......</h1>")
+    res.status(200).send("<h1>Bookstore Server started......</h1>")
 })
 
