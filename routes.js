@@ -12,4 +12,7 @@ route.post("/register",userController.registerController)
 
 route.post("/login",userController.loginController)
 
+//google login
+route.post("/google-login",userController.googleLoginController)
+
 module.exports=route
