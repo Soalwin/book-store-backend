@@ -8,12 +8,14 @@ const jwtMiddleware = (req,res,next)=>{
     console.log(token);
 
     try{
-        const jwtResponse = jwt.verify(token, "secrectKey")
+        const jwtResponse = jwt.verify(token, "secretKey")
         console.log(jwtResponse);
         req.payload = jwtResponse.userMail
         next()
         
     }catch(err){
+        console.log(err);
+        
         res.status(401).json("invalid token")
     }
     

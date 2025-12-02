@@ -21,7 +21,17 @@ route.post("/login",userController.loginController)
 //google login
 route.post("/google-login",userController.googleLoginController)
 
+
+
+//path to get books
+route.get("/home-books",bookController.getHomeBooksController)
+
+
+//..............................user...................
 //add-book 
 route.post("/add-book",jwtMiddleware,multerConfig.array("uploadedImg",3),bookController.addBookController)
+
+//path to get all the books
+route.get("/all-books",jwtMiddleware,bookController.getAllBooksController)
 
 module.exports=route

@@ -38,10 +38,27 @@ exports.addBookController = async(req,res)=>{
     }catch(err){
     res.status(500).json(err)
 
+    }   
+}
+
+
+//to get home books
+exports.getHomeBooksController = async(req,res)=>{
+    try{
+        const allHomebooks = await  books.find().sort({_id:-1}).limit(4)
+        res.status(200).json(allHomebooks)
+    }catch(err){
+        res.status(500).json(err)
     }
-    
-    
-    
-        
-    
+}
+
+
+//to get home books
+exports.getAllBooksController = async(req,res)=>{
+    try{
+        const allbooks = await  books.find()
+        res.status(200).json(allbooks)
+    }catch(err){
+        res.status(500).json(err)
+    }
 }

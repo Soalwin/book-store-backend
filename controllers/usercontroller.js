@@ -32,7 +32,7 @@ exports.loginController = async (req, res) => {
     if (existingUser) {
       if (existingUser.password == password) {
         // JWT encryption
-        const token = jwt.sign({ userMail: existingUser.email }, "secrectKey");
+        const token = jwt.sign({ userMail: existingUser.email }, "secretKey");
         res.status(200).json({ existingUser, token });
       }
     } else {
