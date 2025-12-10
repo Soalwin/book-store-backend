@@ -64,3 +64,37 @@ exports.googleLoginController = async (req, res) => {
     return res.status(500).json({ error: err.message || err });
   }
 };
+
+//.......................Admin..................
+
+//get all users
+
+exports.getAlluserController = async (req, res) => {
+  console.log("inside getalluser controller");
+  const email = req.payload
+
+  try {
+    const allUser = await users.find({ email:{$ne:email} });
+   res.status(200).json({allUser})
+  } catch (err) {
+    return res.status(500).json({  err });
+  }
+};
+
+
+//edit admin profile
+
+exports.editAdminProfileController = async (req, res) => {
+  console.log("inside editAdminProfile  controller");
+  const prof = req.files? req.files.filename : profile
+  const email = req.payload
+  console.log(email);
+  
+
+  try {
+    const adminDetails = await users.findOneAndUpdate({ email},{username,email,password,profile:prof},{new:true} );
+   res.status(200).json({adminDetails})
+  } catch (err) {
+    return res.status(500).json({  err });
+  }
+};

@@ -53,11 +53,68 @@ exports.getHomeBooksController = async(req,res)=>{
 }
 
 
-//to get home books
+//to get all books
 exports.getAllBooksController = async(req,res)=>{
+    const searchKey = req.query.search
+    console.log(searchKey);
+    const email = req.payload
+
+    try{
+        const query = {
+            title:{
+                $regex:searchKey, $options:'i'
+            },
+            
+             userMail:{$ne:email}
+            
+        }
+        const allbooks = await  books.find(query)
+        res.status(200).json(allbooks)
+    }catch(err){
+        res.status(500).json(err)
+    }
+}
+
+//to get a particular books
+
+exports.getABookController = async(req,res)=>{
+    const {id} = req.params
+    console.log(id);
+    
+    try{
+        const book = await  books.findOne({_id:id})
+        res.status(200).json(book)
+    }catch(err){
+        console.log(err);        
+        res.status(500).json(err)
+    }
+}
+
+
+//.....................admin......................
+exports.getAllBooksAdminController = async(req,res)=>{
+    
+
     try{
         const allbooks = await  books.find()
         res.status(200).json(allbooks)
+    }catch(err){
+        res.status(500).json(err)
+    }
+}
+
+
+//aprove book
+exports.approveBookController = async(req,res)=>{
+       const {_id,title,author,noofpages ,imageurl, price, dprice, Abstract, publisher,language,isbn, category,status,brought,userMail,uploadedImg} = req.body
+
+    
+console.log(_id,title,author,noofpages ,imageurl, price, dprice, Abstract, publisher,language,isbn, category,status,brought,userMail,uploadedImg);
+
+
+    try{
+        const existingBook = await  books.findByIdAndUpdate({_id},{_id,title,author,noofpages ,imageurl, price, dprice, Abstract, publisher,language,isbn, category,status:"approved",brought,userMail,uploadedImg},{new:true})
+        res.status(200).json(existingBook)
     }catch(err){
         res.status(500).json(err)
     }
