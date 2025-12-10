@@ -14,7 +14,7 @@ exports.registerController = async (req, res) => {
       return res.status(400).json({ message: "Already registered user." });
     }
 
-    const newUser = new users({ username, email, password });
+    const newUser = new users({ username, email, password ,profile:""});
     await newUser.save();
     return res.status(200).json({ message: "User registered", user: newUser });
   } catch (err) {
@@ -86,8 +86,8 @@ exports.getAlluserController = async (req, res) => {
 
 exports.editAdminProfileController = async (req, res) => {
   console.log("inside editAdminProfile  controller");
-  const prof = req.files? req.files.filename : profile
-  const email = req.payload
+  const prof = req.file? req.file.filename : profile
+
   console.log(email);
   
 
